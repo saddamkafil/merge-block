@@ -1,0 +1,17 @@
+name: Extract Jira Ticket Number
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+jobs:
+  extract-ticket-number:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract Ticket Number
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branchName = context.payload.pull_request.head.ref;
+            const ticketNumber = branchName.match(/(ABC-\d+)/)?.[1];
+            console.log(`Ticket Number: ${ticketNumber}`);
