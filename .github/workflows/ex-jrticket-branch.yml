@@ -13,5 +13,5 @@ jobs:
       - name: Get branch name
         run: |
           branch_name=${{ github.head_ref }}
-          ticket_number=${branch_name:8:7}
+          ticket_number=$(echo "$branch_name" | sed 's/[^0-9]*//g' | sed -r 's/(.{3})/OPS-\1/g')
           echo "The ticket number is $ticket_number"
