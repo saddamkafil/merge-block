@@ -1,17 +1,14 @@
-name: Extract Jira Ticket Number on PR Create
+name: Get branch name from pull request
+
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 
 jobs:
-  extract-ticket-number:
+  get-branch-name:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract Ticket Number
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const branchName = context.payload.pull_request.head.ref;
-            const ticketNumber = branchName.match(/(OPS-\d+)/)?.[1];
-            console.log(`Ticket Number: ${ticketNumber}`);
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get branch name
+        run: echo "The branch name is ${{ github.head_ref }}"
