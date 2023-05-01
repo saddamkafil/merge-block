@@ -15,8 +15,4 @@ jobs:
         branch=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
         ticket=$(echo $branch | grep -oP "(?<=^|\/)[A-Z]+-[0-9]+(?=$|\/)")
         echo "::set-output name=ticket::$ticket"
-    - name: Comment on Pull Request
-      uses: peter-evans/create-or-update-comment@v1
-      with:
-        body: "The Jira ticket for this pull request is ${{ steps.get_ticket.outputs.ticket }}"
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        echo "Jira ticket Number: $ticket"
