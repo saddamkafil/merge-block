@@ -1,18 +1,20 @@
-name: Extract Jira Ticket Number
+name: Extract Jira Ticket Number on Merge
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+    branches:
+      - main
 
 jobs:
-  extract-ticket:
+  extract-ticket-number:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Get Jira Ticket Number
-      id: get_ticket
-      run: |
-        branch=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
-        ticket=$(echo $branch | grep -oP "(?<=^|\/)[A-Z]+-[0-9]+(?=$|\/)")
-        echo "::set-output name=ticket::$ticket"
-        echo "Jira ticket Number: $ticket"
+      - name: Extract Ticket Number
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branchName = context.payload.pull_request.head.ref;
+            const ticketNumber = branchName.match(/(OPS-\d+)/)?.[1];
+            console.log(`Ticket Number: ${ticketNumber}`);
