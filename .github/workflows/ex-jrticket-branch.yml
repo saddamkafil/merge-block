@@ -1,14 +1,17 @@
-name: Get branch name from pull request
+name: Get ticket number from branch name
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  get-branch-name:
+  get-ticket-number:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Get branch name
-        run: echo "The branch name is ${{ github.head_ref }}"
+        run: |
+          branch_name=${{ github.head_ref }}
+          ticket_number=${branch_name:8:7}
+          echo "The ticket number is $ticket_number"
