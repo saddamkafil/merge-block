@@ -17,3 +17,10 @@ jobs:
           echo "The ticket number is $ticket_number"
           jira_ticket_status="$(curl -u "${{secrets.JIRA_USERNAME}}":"${{secrets.JIRA_API_KEY}}" -X GET -H "Content-Type: application/json" "https://${{secrets.JIRA_HOST}}/rest/api/2/issue/${jira_ticket}?fields=status" | jq '.fields.status.name')"
           echo Jira_status: "$jira_ticket_status"
+          if [[ "$jira_ticket_status" == "REVIEW" ]]; then
+              echo "Jira ticket $jira_ticket is marked as Resolved. Merge to develop is allowed."
+              exit 0
+            else
+              echo "Jira ticket $jira_ticket is not marked as Resolved. Merge to develop is not allowed."
+              exit 1
+            fi
