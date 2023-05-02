@@ -13,7 +13,7 @@ jobs:
       - name: Get branch name
         run: |
           branch_name=${{ github.head_ref }}
-          ticket_number=$(echo "$branch_name" | sed 's/[^0-9]*//g' | sed -r 's/([0-9]+)/OPS-\1/gI')
+          jira_ticket=$(echo "$branch_name" | sed 's/[^0-9]*//g' | sed -r 's/([0-9]+)/OPS-\1/gI')
           echo "The ticket number is $ticket_number"
           jira_ticket_status="$(curl -u "${{secrets.JIRA_USERNAME}}":"${{secrets.JIRA_API_KEY}}" -X GET -H "Content-Type: application/json" "https://${{secrets.JIRA_HOST}}/rest/api/2/issue/${jira_ticket}?fields=status" | jq '.fields.status.name')"
           echo Jira_status: "$jira_ticket_status"
