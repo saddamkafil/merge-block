@@ -3,7 +3,7 @@ name: Test Ticket Status
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
-    branches: [ develop, feature/*, release/*, hotfix/* ]
+    branches: [ main, develop, feature/*, release/*, hotfix/* ]
 
 jobs:
   get-ticket-number:
