@@ -22,7 +22,7 @@ jobs:
               echo "Jira ticket not found. Defaulting to passed."
               exit 0
           fi
-          if [[ "$jira_ticket_status" == "READY" ]]; then
+          if [[ "$jira_ticket_status" == ""READY"" ]]; then
               echo "Jira ticket $jira_ticket is marked as $jira_ticket_status. Merge to develop is allowed."
               exit 0
             else
