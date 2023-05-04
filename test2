@@ -1,0 +1,2 @@
+if echo "$jira_ticket_status" | grep -q "Ready"; then
+if echo "$jira_ticket_status" | grep -qE "READY FOR INTEGRATION|READY FOR UAT|READY FOR PROD RELEASE|READY|ready"; then
