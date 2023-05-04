@@ -1,0 +1,1 @@
+if echo "$jira_ticket_status" | grep -q "Ready"; then
