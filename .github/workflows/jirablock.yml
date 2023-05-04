@@ -11,15 +11,6 @@ jobs:
     steps:
       - name: Checkout ticket
         uses: actions/checkout@v2
-      - name: Get branch name
-        run: |
-          branch_name="${{ github.head_ref }}"
-          jira_ticket="$(grep -Eo '[A-Z|a-z]{1,}\-[0-9]{1,}' <<< "$branch_name")"
-          echo "The ticket number is $jira_ticket"
-          if [ -z "$jira_status" ]; then
-            echo "No ticket found.  Defaulting to passed."
-            exit 0
-          fi
       - name: Check Jira ticket status
         run: |
           branch_name="${{ github.head_ref }}"
