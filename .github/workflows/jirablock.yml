@@ -22,7 +22,8 @@ jobs:
               echo "Jira ticket not found. Defaulting to passed."
               exit 0
           fi
-          if echo "$jira_ticket_status" | grep -q "Ready"; then
+          #if echo "$jira_ticket_status" | grep -q "Ready"; then
+          if echo "$jira_ticket_status" | grep -qE "READY FOR INTEGRATION|READY FOR UAT|READY FOR PROD RELEASE|READY|Ready|"; then
               echo "Jira ticket $jira_ticket is marked as $jira_ticket_status. Merge to develop is allowed."
               exit 0
             else
