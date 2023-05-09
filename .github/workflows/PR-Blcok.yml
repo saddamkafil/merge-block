@@ -1,4 +1,4 @@
-name: Test Ticket Status
+name: Test Ticket Status2-PR-Blcok.yml
 
 on:
   pull_request:
@@ -15,9 +15,9 @@ jobs:
         run: |
           branch_name="${{ github.head_ref }}"
           jira_ticket="$(grep -Eo '(feature|release|hotfix)/[A-Z|a-z]{1,}\-[0-9]{1,}' <<< "$branch_name" | grep -Eo '[A-Z|a-z]{1,}\-[0-9]{1,}')"
+          echo jira_ticket="$jira_ticket"
           if [ -z "$jira_ticket" ]
           then
-            echo jira_ticket="$jira_ticket"
             echo "No ticket found.  Defaulting to passed."
             exit 0
           fi
