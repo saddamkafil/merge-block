@@ -17,6 +17,7 @@ jobs:
           jira_ticket="$(grep -Eo '(feature|release|hotfix)/[A-Z|a-z]{1,}\-[0-9]{1,}' <<< "$branch_name" | grep -Eo '[A-Z|a-z]{1,}\-[0-9]{1,}')"
           if [ -z "$jira_ticket" ]
           then
+            echo jira_ticket="$jira_ticket"
             echo "No ticket found.  Defaulting to passed."
             exit 0
           fi
